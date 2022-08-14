@@ -3,12 +3,22 @@ use std::error;
 pub type Result<T> = std::result::Result<T, Box<dyn error::Error>>;
 
 #[macro_export]
-macro_rules! debug {
+macro_rules! d {
     ( $($a:expr),* ) => {
         #[cfg(debug_assertions)]
         eprint!("{} - {}: ", file!(), line!());
         #[cfg(debug_assertions)]
         eprintln!(concat!($(stringify!($a), "={:?}    "),*), $(&$a),*);
+    };
+}
+
+#[macro_export]
+macro_rules! p {
+    ( $($a:expr),* ) => {
+        #[cfg(debug_assertions)]
+        eprint!("{} - {}: ", file!(), line!());
+        #[cfg(debug_assertions)]
+        eprintln!(concat!($(stringify!($a), "={}    "),*), $(&$a),*);
     };
 }
 
